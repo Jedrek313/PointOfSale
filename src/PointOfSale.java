@@ -9,7 +9,7 @@ public class PointOfSale {
     private boolean running;
 
     private LinkedList<Product> products = new LinkedList<>();
-    private Database database = new Database();
+    private ProductsDatabase database = new ProductsDatabase();
     private double sum = 0.0;
 
     public PointOfSale(){
@@ -19,13 +19,14 @@ public class PointOfSale {
         running = true;
     }
 
-    public void run(){
+    public void startTransaction(){
+        running=true;
         while(running){
             String barCode = barCodeScanner.scan();
-            if(barCode=="exit"){
-                exit();
+            if(barCode.equals("exit")){
                 running = false;
-            }else if(barCode =="" || barCode==null){
+                exit();
+            }else if(barCode.equals("")){
                 lcdDisplay.print("Invalid bar-code");
             }else{
                 processBarCode(barCode);
@@ -34,7 +35,7 @@ public class PointOfSale {
     }
 
 
-    public void processBarCode(String barCode){
+    private void processBarCode(String barCode){
         Product product = database.found(barCode);
         if(product==null){
             lcdDisplay.print("Product not found");
@@ -63,7 +64,7 @@ public class PointOfSale {
     private void printAllOnPrinter(){
         Iterator<Product> iterator = products.iterator();
         while(iterator.hasNext()){
-            lcdDisplay.print(iterator.next());
+            printer.print(iterator.next());
         }
         printer.print("Total sum: "+sum);
     }
