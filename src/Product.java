@@ -8,10 +8,6 @@ private double price;
         this.price=price;
     }
 
-    public String toString(){
-        return name + " " + price;
-    }
-
     public String getName() {
         return name;
     }
