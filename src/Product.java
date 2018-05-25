@@ -15,4 +15,8 @@ private double price;
     public double getPrice() {
         return price;
     }
+
+    public String toString(){
+        return "Product: " + name + " Price: " + price;
+    }
 }

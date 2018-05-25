@@ -1,5 +1,6 @@
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 public class PointOfSale {
 
@@ -8,7 +9,7 @@ public class PointOfSale {
     private LcdDisplay lcdDisplay;
     private boolean running;
 
-    private LinkedList<Product> products = new LinkedList<>();
+    private List<Product> products = new LinkedList<>();
     private ProductsDatabase database = new ProductsDatabase();
     private double sum = 0.0;
 
@@ -24,7 +25,6 @@ public class PointOfSale {
         while(running){
             String barCode = barCodeScanner.scan();
             if(barCode.equals("exit")){
-                running = false;
                 exit();
             }else if(barCode.equals("")){
                 lcdDisplay.print("Invalid bar-code");
@@ -34,18 +34,21 @@ public class PointOfSale {
         }
     }
 
-
+    public void deactivate(){
+        barCodeScanner.endScanning();
+    }
     private void processBarCode(String barCode){
         Product product = database.found(barCode);
         if(product==null){
             lcdDisplay.print("Product not found");
         }else{
             addProduct(product);
-            lcdDisplay.print(product);
+            lcdDisplay.print(product.toString());
         }
     }
 
     private void exit(){
+        running = false;
         printAllOnPrinter();
         lcdDisplay.print("Total sum: "+sum);
         clear();
@@ -64,7 +67,7 @@ public class PointOfSale {
     private void printAllOnPrinter(){
         Iterator<Product> iterator = products.iterator();
         while(iterator.hasNext()){
-            printer.print(iterator.next());
+            printer.print(iterator.next().toString());
         }
         printer.print("Total sum: "+sum);
     }
