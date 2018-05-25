@@ -1,7 +1,7 @@
 import java.util.Iterator;
 import java.util.LinkedList;
 
-public class PointOfSales {
+public class PointOfSale {
 
     private BarCodeScanner barCodeScanner = new BarCodeScanner();
     private Printer printer = new Printer();
@@ -11,7 +11,7 @@ public class PointOfSales {
     private Database database = new Database();
     private double sum = 0.0;
 
-    public PointOfSales(){
+    public PointOfSale(){
 
     }
 
