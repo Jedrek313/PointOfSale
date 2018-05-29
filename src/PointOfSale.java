@@ -1,3 +1,9 @@
+import devices.BarCodeScanner;
+import devices.LcdDisplay;
+import devices.Printer;
+import model.DatabaseManager;
+import model.Product;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,7 +30,7 @@ public class PointOfSale {
         while(running){
             String barCode = barCodeScanner.scan();
             if(barCode.equals("exit")){
-                exit();
+                endTransaction();
             }else if(barCode.equals("")){
                 lcdDisplay.print("Invalid bar-code");
             }else{
@@ -65,7 +71,7 @@ public class PointOfSale {
     }
 
 
-    public void exit(){
+    public void endTransaction(){
         running = false;
         printAllOnPrinter();
         lcdDisplay.print("Total price: "+totalPrice);

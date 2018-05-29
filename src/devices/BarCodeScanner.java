@@ -1,3 +1,5 @@
+package devices;
+
 import java.util.Scanner;
 
 public class BarCodeScanner {
