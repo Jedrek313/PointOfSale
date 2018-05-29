@@ -1,9 +1,17 @@
 import model.Product;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class ProductTest {
 
+    @Before
+    public void setUp(){
+        Product sugar = new Product("100","Sugar", 1.99);
+        Product sugarWithDifferentBarCode = new Product("101","Sugar", 1.99);
+        Product sugarWithDifferentName = new Product("100","Apple", 1.99);
+        Product sugarWithDifferentPrice = new Product("100","Sugar", 0.99);
+    }
     @Test
     public void twoTheSameProductsEquals(){
         Assert.assertEquals(new Product("100","Sugar", 1.99), new Product("100","Sugar", 1.99));

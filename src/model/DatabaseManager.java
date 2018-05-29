@@ -15,8 +15,10 @@ public class DatabaseManager {
         fillList();
     }
 
-    public Product find(String barCode){
-        return products.get(barCode);
+    public Product find(String barCode) throws FileNotFoundException {
+        Product product = products.get(barCode);
+        if(product==null)throw new FileNotFoundException();
+        return product;
     }
 
     private void fillList(){

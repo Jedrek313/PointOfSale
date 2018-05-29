@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.FileNotFoundException;
+
 public class DatabaseManagerTest {
 
     public static DatabaseManager databaseManager;
@@ -14,7 +16,7 @@ public class DatabaseManagerTest {
     }
 
     @Test
-    public void checkDataIntegrity(){
+    public void checkDataIntegrity() throws FileNotFoundException {
         Product water = new Product("100", "water 1l", 0.99);
         Assert.assertEquals(databaseManager.find("100"), water);
     }

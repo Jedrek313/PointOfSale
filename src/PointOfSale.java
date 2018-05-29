@@ -4,6 +4,7 @@ import devices.Printer;
 import model.DatabaseManager;
 import model.Product;
 
+import java.io.FileNotFoundException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -61,12 +62,12 @@ public class PointOfSale {
     }
 
     private void processBarCode(String barCode){
-        Product product = database.find(barCode);
-        if(product==null){
-            lcdDisplay.print("Product not found");
-        }else{
+        try {
+            Product product = database.find(barCode);
             addProduct(product);
             lcdDisplay.print(product.toString());
+        } catch (FileNotFoundException e) {
+            lcdDisplay.print("Product not found");
         }
     }
 

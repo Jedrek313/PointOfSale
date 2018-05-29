@@ -1,16 +1,16 @@
 import model.Product;
 import org.junit.Assert;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Iterator;
 
 public class PointOfSaleTest{
 
-    public static PointOfSale pointOfSale;
+    public PointOfSale pointOfSale;
 
-    @BeforeClass
-    public static void setUp(){
+    @Before
+    public void setUp(){
         pointOfSale = new PointOfSale();
     }
 
@@ -23,6 +23,7 @@ public class PointOfSaleTest{
 
     @Test
     public void addingProductTotalPriceEquals(){
+        System.out.println(pointOfSale.getProducts().size());
         Product milk = new Product("100","Milk",1.99);
         pointOfSale.addProduct(milk);
         Assert.assertEquals(pointOfSale.getTotalPrice(), milk.getPrice(), 0.005);
