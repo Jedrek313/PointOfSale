@@ -38,7 +38,7 @@ private String barCode;
 
     @Override
     public String toString(){
-        return "Product: " + name + " Price: " + price;
+        return "Product: " + name + " Price: " + price + " BarCode: " + barCode;
     }
 
     @Override
