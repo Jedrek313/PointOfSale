@@ -6,8 +6,11 @@ public class BarCodeScanner {
 
     private Scanner scanner;
 
-    public String scan(){
+    public BarCodeScanner(){
         scanner = new Scanner(System.in);
+    }
+
+    public String scan(){
         return scanner.nextLine();
     }
 
