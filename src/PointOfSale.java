@@ -10,14 +10,13 @@ public class PointOfSale {
     private boolean running;
 
     private List<Product> products = new LinkedList<>();
-    private ProductsDatabase database = new ProductsDatabase();
-    private double sum = 0.0;
+    private DatabaseManager database = new DatabaseManager();
+    private double totalPrice = 0.0;
 
     public PointOfSale(){
         barCodeScanner = new BarCodeScanner();
         printer = new Printer();
         lcdDisplay = new LcdDisplay();
-        running = true;
     }
 
     public void startTransaction(){
@@ -34,11 +33,29 @@ public class PointOfSale {
         }
     }
 
-    public void deactivate(){
-        barCodeScanner.endScanning();
+    public void deactivateScanner(){
+        barCodeScanner.deactivate();
     }
+
+    public boolean isRunning() {
+        return running;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void addProduct(Product product){
+        products.add(product);
+        totalPrice = totalPrice + product.getPrice();
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
     private void processBarCode(String barCode){
-        Product product = database.found(barCode);
+        Product product = database.find(barCode);
         if(product==null){
             lcdDisplay.print("Product not found");
         }else{
@@ -47,28 +64,25 @@ public class PointOfSale {
         }
     }
 
-    private void exit(){
+
+    public void exit(){
         running = false;
         printAllOnPrinter();
-        lcdDisplay.print("Total sum: "+sum);
+        lcdDisplay.print("Total price: "+totalPrice);
         clear();
     }
 
     private void clear(){
-        sum = 0.0;
+        totalPrice = 0.0;
         products.clear();
     }
 
-    private void addProduct(Product product){
-        products.add(product);
-        sum = sum + product.getPrice();
-    }
 
     private void printAllOnPrinter(){
         Iterator<Product> iterator = products.iterator();
         while(iterator.hasNext()){
             printer.print(iterator.next().toString());
         }
-        printer.print("Total sum: "+sum);
+        printer.print("Total price: "+totalPrice);
     }
 }

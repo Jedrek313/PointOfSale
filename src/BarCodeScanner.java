@@ -4,15 +4,12 @@ public class BarCodeScanner {
 
     private Scanner scanner;
 
-    public BarCodeScanner(){
-        scanner = new Scanner(System.in);
-    }
-
     public String scan(){
+        scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
 
-    public void endScanning(){
+    public void deactivate(){
         scanner.close();
     }
 }
